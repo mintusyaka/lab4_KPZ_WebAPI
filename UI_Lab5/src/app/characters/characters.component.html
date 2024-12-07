@@ -1,0 +1,78 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Strength</th>
+      <th scope="col">Speed</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let character of characters">
+      <td>{{character.name}}</td>
+      <td>{{character.description}}</td>
+      <td>{{character.strength}}</td>
+      <td>{{character.speed}}</td>
+      <td><button (click)="editCharacter(character)">Edit</button></td>
+      <td><button (click)="deleteCharacter(character)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<div>
+  <button (click)="addCharacter()" type="button" class="btn btn-dark">Add Character</button>
+</div>
+
+<div *ngIf="isEditCharacter || isAddCharacter">
+  <form [formGroup]="characterForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label class="col-form-label " for="name">Ім'я</label>
+      <input *ngIf="isEditCharacter" id="name"
+             formControlName="name"
+             type="text" class="form-control" placeholder="{{character[0].name}}" />
+      <input *ngIf="isAddCharacter" id="name"
+             formControlName="name"
+             type="text" class="form-control" placeholder="Name" />
+    </div>
+
+    <div class="form-group">
+      <label class="col-form-label " for="description">Опис</label>
+      <input *ngIf="isEditCharacter" id="description"
+             formControlName="description"
+             type="text" class="form-control" placeholder="{{character[0].description}}" />
+      <input *ngIf="isAddCharacter" id="description"
+             formControlName="description"
+             type="text" class="form-control" placeholder="Description" />
+    </div>
+
+    <div class="form-group">
+      <label class="col-form-label" for="strength">Сила</label>
+      <input *ngIf="isEditCharacter" id="strength"
+             formControlName="strength"
+             type="number" class="form-control" placeholder="{{character[0].strength}}" />
+      <input *ngIf="isAddCharacter" id="strength"
+             formControlName="strength"
+             type="number" class="form-control" placeholder="Strength" />
+    </div>
+
+    <div class="form-group">
+      <label class="col-form-label " for="speed">Швидкість</label>
+      <input *ngIf="isEditCharacter" id="speed"
+             formControlName="speed"
+             type="number" class="form-control" placeholder="{{character[0].speed}}" />
+      <input *ngIf="isAddCharacter" id="speed"
+             formControlName="speed"
+             type="number" class="form-control" placeholder="Speed" />
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <button *ngIf="isEditCharacter" class="btn btn-dark mt-2" type="submit" style="min-width:32rem;">
+        Редагувати
+      </button>
+      <button *ngIf="isAddCharacter" class="btn btn-dark mt-2" type="submit" style="min-width:32rem;">
+        Додати
+      </button>
+    </div>
+  </form>
+</div>
